@@ -1,0 +1,19 @@
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px 30px;
+  border-top: 2px solid #d3d3d3;
+}
+
+.footer__container {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
