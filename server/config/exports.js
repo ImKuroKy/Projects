@@ -1,5 +1,5 @@
-import pkg from 'pg';
-import dotenv from 'dotenv';
+import pkg from "pg";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -15,9 +15,9 @@ const pool = new Pool({
 
 pool.connect((err) => {
   if (err) {
-    console.error('Error connecting to the database:', err);
+    console.error("Error connecting to the database:", err);
   } else {
-    console.log('Successfully connected to the PostgreSQL database.\n');
+    console.log("Successfully connected to the PostgreSQL database.\n");
   }
 });
 
