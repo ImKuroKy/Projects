@@ -10,22 +10,23 @@
       <span class="nav__spacer"></span>
       <a
         class="nav__link"
-        routerLink="/"
+        routerLink="/about"
         routerLinkActive="nav__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
         ariaCurrentWhenActive="page"
       >
         Главная
       </a>
       <a
         class="nav__link"
-        routerLink="/login"
+        routerLink="/auth/login"
         routerLinkActive="nav__link--active"
       >
         Вход
       </a>
       <a
         class="nav__link"
-        routerLink="/register"
+        routerLink="/auth/register"
         routerLinkActive="nav__link--active"
       >
         Регистрация
