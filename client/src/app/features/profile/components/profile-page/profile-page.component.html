@@ -1,0 +1,29 @@
+<div class="profile">
+  <div class="profile__background">
+    <img
+      class="profile__background-image"
+      src="../../../assets/profile-bg.png"
+    />
+  </div>
+  <div class="profile__content" *ngIf="user">
+    <div class="profile__header">
+      <div class="profile__avatar-container">
+        <img class="profile__avatar" src="../../../assets/user-avatar.png" />
+      </div>
+      <div class="profile__info">
+        <h1 class="profile__name">{{ user.name }}</h1>
+        <button (click)="onEdit()" class="profile__edit-button">
+          Изменить данные
+        </button>
+      </div>
+    </div>
+    <div class="profile__details">
+      <p class="profile__detail"><strong>Телефон:</strong> {{ user.phone }}</p>
+      <p class="profile__detail"><strong>Email:</strong> {{ user.email }}</p>
+      <p class="profile__detail"><strong>О себе:</strong> {{ user.about }}</p>
+      <button (click)="onLogout()" class="profile__edit-button">
+        Выйти из аккаунта
+      </button>
+    </div>
+  </div>
+</div>

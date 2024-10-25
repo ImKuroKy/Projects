@@ -18,4 +18,8 @@ export class ApiService {
   register(user: { name:string; email: string; password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/register`, user);
   }
+
+  getUserProfile(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/users/${userId}`);
+  }
 }

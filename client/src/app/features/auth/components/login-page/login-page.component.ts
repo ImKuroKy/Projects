@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-login-page',
@@ -25,6 +25,7 @@ export class LoginPageComponent {
     this.apiService.login(this.user).subscribe({
       next: (response) => {
         this.router.navigate(['/profile']);
+        localStorage.setItem('token', response.token);
       },
       error: (error) => {
         console.error('There was an error logging in: ', error);

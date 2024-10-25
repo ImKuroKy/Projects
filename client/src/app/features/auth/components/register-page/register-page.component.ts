@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api.service';
-import { ComparePasswordDirective } from '../../directives/compare-password.directive';
+import { ApiService } from '../../../../services/api.service';
+import { ComparePasswordDirective } from '../../../../directives/compare-password.directive';
 
 @Component({
   selector: 'app-register-page',
