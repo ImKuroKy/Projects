@@ -1,13 +1,34 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [ RouterModule ],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css'
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
+  user = {
+    email: '',
+    password: '',
+  };
 
+  constructor(private apiService: ApiService, private router: Router) {}
+
+  onSubmit(form: NgForm) {
+    if (form.invalid) return;
+
+    this.apiService.login(this.user).subscribe({
+      next: (response) => {
+        this.router.navigate(['/profile']);
+      },
+      error: (error) => {
+        console.error('There was an error logging in: ', error);
+      },
+    });
+  }
 }

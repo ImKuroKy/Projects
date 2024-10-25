@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 import { ComparePasswordDirective } from '../../directives/compare-password.directive';
 
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, ComparePasswordDirective],
+  imports: [RouterModule, CommonModule, FormsModule, ComparePasswordDirective],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',
 })
@@ -26,12 +26,12 @@ export class RegisterPageComponent {
     if (form.valid) {
       const { name, email, password } = this.user;
       const requestData = { name, email, password };
-      this.apiService.postData(requestData).subscribe({
+      this.apiService.register(requestData).subscribe({
         next: (response) => {
           this.router.navigate(['/auth/login']);
         },
         error: (error) => {
-          console.error('Error registering user', error);
+          console.error('An error occurred during registration: ', error);
         },
       });
     }
