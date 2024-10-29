@@ -5,19 +5,21 @@ dotenv.config();
 const secretKey = process.env.SECRET_KEY;
 
 const authenticateJWT = (req, res, next) => {
-  const token = req.header("Authorization");
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).json({ message: "Access denied" });
-  }
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    const token = authHeader.split(" ")[1];
 
-  try {
-    const decoded = jwt.verify(token, secretKey);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).json({ message: "Access denied" });
-    console.log("Invalid token: ", err);
+    jwt.verify(token, secretKey, (err, user) => {
+      if (err) {
+        console.error("JWT verification error:", err);
+        return res.sendStatus(403).json({ message: "Invalid token" });
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(401).json({ message: "Authorization header not found" });
   }
 };
 
