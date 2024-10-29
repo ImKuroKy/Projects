@@ -11,7 +11,7 @@ import { ApiService } from '../../../../services/api.service';
   styleUrl: './profile-page.component.css',
 })
 export class ProfilePageComponent implements OnInit {
-  user: any = null;
+  user: any = {};
 
   constructor(
     private apiService: ApiService,
@@ -20,17 +20,14 @@ export class ProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId'));
-    if (userId) {
-      this.apiService.getUserProfile(userId).subscribe({
-        next: (data) => {
-          this.user = data;
-        },
-        error: (err) => {
-          console.error('An error occurred during getting user data: ', err);
-        },
-      });
-    }
+    this.apiService.getUserProfile().subscribe({
+      next: (data) => {
+        this.user = data.data;
+      },
+      error: (err) => {
+        console.error('An error occurred during getting user data: ', err);
+      },
+    });
   }
   onEdit() {
     this.router.navigate(['/profile/edit']);

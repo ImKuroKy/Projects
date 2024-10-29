@@ -19,7 +19,7 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/auth/register`, user);
   }
 
-  getUserProfile(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users/${userId}`);
+  getUserProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/profile`);
   }
 }
