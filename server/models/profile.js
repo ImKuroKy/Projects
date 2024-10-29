@@ -9,9 +9,56 @@ export const checkUser = async (userId) => {
 
 export const getProfile = async (userId) => {
   const getQueryProfile = `SELECT ua.name, ua.email, ud.phone, ud.background_url, ud.avatar_url, ud.about
-      FROM "warehouse-management"."user_account" ua
-      LEFT JOIN "warehouse-management"."user_data" ud ON ua.user_id = ud.user_id
-      WHERE ua.user_id = $1`;
+    FROM "warehouse-management"."user_account" ua
+    LEFT JOIN "warehouse-management"."user_data" ud ON ua.user_id = ud.user_id
+    WHERE ua.user_id = $1`;
   const result = await pool.query(getQueryProfile, [userId]);
   return result.rows[0];
+};
+
+export const updateProfile = async (
+  name,
+  email,
+  phone,
+  about,
+  backgroundUrl,
+  avatarUrl,
+  userId
+) => {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const updateUserAccountQuery = `
+      UPDATE "warehouse-management"."user_account" ua
+      SET name = $1, email = $2
+      WHERE ua.user_id = $3;`;
+
+    await client.query(updateUserAccountQuery, [name, email, userId]);
+
+    const updateUserDataQuery = `
+      UPDATE "warehouse-management"."user_data" ud
+      SET phone = COALESCE($1, ud.phone),
+          about = COALESCE($2, ud.about),
+          background_url = COALESCE($3, ud.background_url),
+          avatar_url = COALESCE($4, ud.avatar_url)
+      WHERE ud.user_id = $5;`;
+
+    await client.query(updateUserDataQuery, [
+      phone,
+      about,
+      backgroundUrl,
+      avatarUrl,
+      userId,
+    ]);
+
+    await client.query("COMMIT");
+
+    return await getProfile(userId);
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
 };
