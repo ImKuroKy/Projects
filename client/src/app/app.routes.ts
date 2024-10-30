@@ -6,6 +6,7 @@ import { RegisterPageComponent } from './features/auth/components/register-page/
 import { ProfilePageComponent } from './features/profile/components/profile-page/profile-page.component';
 import { authGuard } from './features/auth/guards/auth.guard';
 import { guestGuard } from './features/auth/guards/guest.guard';
+import { ProfileEditPageComponent } from './features/profile/components/profile-edit-page/profile-edit-page.component';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,12 @@ export const routes: Routes = [
     path: 'profile',
     canActivate: [authGuard],
     component: ProfilePageComponent,
+  },
+  {
+    title: 'Личный кабинет',
+    path: 'profile/edit',
+    canActivate: [authGuard],
+    component: ProfileEditPageComponent,
   },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/auth/login' }, // Redirect unknown routes to login

@@ -30,7 +30,7 @@ export class ProfilePageComponent implements OnInit {
     });
   }
   onEdit() {
-    this.router.navigate(['/profile/edit']);
+    this.router.navigate(['profile/edit']);
   }
   onLogout() {
     localStorage.removeItem('token');
