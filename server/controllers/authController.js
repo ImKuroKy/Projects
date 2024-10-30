@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
-import { findUserByEmail, createUser } from "../models/user.js";
+import { findUserByEmail, createUser, createUserData, createUserAddress } from "../models/user.js";
 
 dotenv.config();
 const secretKey = process.env.SECRET_KEY;
@@ -23,7 +23,9 @@ export const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await createUser(name, email, hashedPassword);
+    const userId = await createUser(name, email, hashedPassword);
+    await createUserAddress(userId);
+    await createUserData(userId);
 
     res.status(201).json({
       success: true,
@@ -35,6 +37,7 @@ export const register = async (req, res) => {
     });
   }
 };
+
 
 export const login = async (req, res) => {
   const errors = validationResult(req);

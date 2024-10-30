@@ -3,6 +3,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { checkUser, getProfile, updateProfile } from "../models/profile.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export const getUserProfile = async (req, res) => {
   const userId = req.user.userId;
 
@@ -13,7 +16,7 @@ export const getUserProfile = async (req, res) => {
     }
 
     const userProfile = await getProfile(userId);
-
+    
     res.status(200).json({
       data: userProfile,
     });
@@ -26,6 +29,7 @@ export const getUserProfile = async (req, res) => {
 export const editUserProfile = async (req, res) => {
   const userId = req.user.userId;
   const { name, email, phone, about } = req.body;
+  const addressId = userId;
   let backgroundUrl, avatarUrl;
 
   try {
@@ -38,11 +42,13 @@ export const editUserProfile = async (req, res) => {
 
     if (req.files) {
       if (req.files.background) {
-        backgroundUrl = req.files.background[0].path; // новый путь к файлу
+        const backgroundFilename = req.files.background[0].filename;
+        backgroundUrl = `${req.protocol}://${req.get('host')}/uploads/${backgroundFilename}`;
       }
 
       if (req.files.avatar) {
-        avatarUrl = req.files.avatar[0].path; // новый путь к файлу
+        const avatarFilename = req.files.avatar[0].filename;
+        avatarUrl = `${req.protocol}://${req.get('host')}/uploads/${avatarFilename}`;
       }
     }
 
@@ -53,26 +59,25 @@ export const editUserProfile = async (req, res) => {
       about,
       backgroundUrl,
       avatarUrl,
+      addressId,
       userId
     );
 
-    // Удаляем старые файлы только после успешного обновления
     if (req.files) {
       if (req.files.background && currentProfile.background_url) {
-        // Используем только относительный путь из базы данных
-        const oldBackgroundPath = currentProfile.background_url; // предполагается, что путь уже относительный
+        const oldBackgroundPath = path.join(__dirname, '../..', currentProfile.background_url.replace(`${req.protocol}://${req.get('host')}/`, ''));
         await fs.unlink(oldBackgroundPath);
       }
 
       if (req.files.avatar && currentProfile.avatar_url) {
-        const oldAvatarPath = currentProfile.avatar_url; // предполагается, что путь уже относительный
+        const oldAvatarPath = path.join(__dirname, '../..', currentProfile.avatar_url.replace(`${req.protocol}://${req.get('host')}/`, ''));
         await fs.unlink(oldAvatarPath);
       }
     }
 
     res.status(200).json({
       success: true,
-      message: "Profile updated successfully",
+      message: "Profile updated successfully"
     });
   } catch (err) {
     console.error("Error updating user profile:", err);

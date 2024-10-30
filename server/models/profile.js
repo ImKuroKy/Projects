@@ -23,6 +23,7 @@ export const updateProfile = async (
   about,
   backgroundUrl,
   avatarUrl,
+  addressId,
   userId
 ) => {
   const client = await pool.connect();
@@ -31,7 +32,7 @@ export const updateProfile = async (
 
     const updateUserAccountQuery = `
       UPDATE "warehouse-management"."user_account" ua
-      SET name = $1, email = $2
+      SET name = COALESCE($1, ua.name), email = COALESCE($2, ua.email)
       WHERE ua.user_id = $3;`;
 
     await client.query(updateUserAccountQuery, [name, email, userId]);
@@ -41,14 +42,16 @@ export const updateProfile = async (
       SET phone = COALESCE($1, ud.phone),
           about = COALESCE($2, ud.about),
           background_url = COALESCE($3, ud.background_url),
-          avatar_url = COALESCE($4, ud.avatar_url)
-      WHERE ud.user_id = $5;`;
+          avatar_url = COALESCE($4, ud.avatar_url),
+          address_id = COALESCE($5, ud.address_id)
+      WHERE ud.user_id = $6;`;
 
     await client.query(updateUserDataQuery, [
       phone,
       about,
       backgroundUrl,
       avatarUrl,
+      addressId,
       userId,
     ]);
 

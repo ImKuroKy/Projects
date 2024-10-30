@@ -13,7 +13,10 @@ const authenticateJWT = (req, res, next) => {
     jwt.verify(token, secretKey, (err, user) => {
       if (err) {
         console.error("JWT verification error:", err);
-        return res.sendStatus(403).json({ message: "Invalid token" });
+        if (err.name === "TokenExpiredError") {
+          return res.status(403).json({ message: "Token has expired" });
+        }
+        return res.status(403).json({ message: "Invalid token" });
       }
       req.user = user;
       next();
