@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
+import { CheckTokenService } from '../../../../services/checkToken.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,6 +16,7 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private checkTokenService: CheckTokenService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -33,6 +35,7 @@ export class ProfilePageComponent implements OnInit {
     this.router.navigate(['profile/edit']);
   }
   onLogout() {
+    this.checkTokenService.logout();
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './features/home-page/home-page.component';
+import { AboutPageComponent } from './features/about-page/components/about-page/about-page.component';
 import { LoginPageComponent } from './features/auth/components/login-page/login-page.component';
 import { RegisterPageComponent } from './features/auth/components/register-page/register-page.component';
 import { ProfilePageComponent } from './features/profile/components/profile-page/profile-page.component';
@@ -10,9 +10,9 @@ import { ProfileEditPageComponent } from './features/profile/components/profile-
 
 export const routes: Routes = [
   {
-    title: 'Главная',
+    title: 'О нас',
     path: 'about',
-    component: HomePageComponent,
+    component: AboutPageComponent,
   },
   {
     title: 'Вход',
