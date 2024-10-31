@@ -10,33 +10,38 @@
       <span class="nav__spacer"></span>
       <a
         class="nav__link"
-        routerLink="/"
+        routerLink="/about"
         routerLinkActive="nav__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
         ariaCurrentWhenActive="page"
       >
-        Главная
+        О нас
       </a>
-      <a
-        class="nav__link"
-        routerLink="/login"
-        routerLinkActive="nav__link--active"
-      >
-        Вход
-      </a>
-      <a
-        class="nav__link"
-        routerLink="/register"
-        routerLinkActive="nav__link--active"
-      >
-        Регистрация
-      </a>
-      <a
-        class="nav__link"
-        routerLink="/profile"
-        routerLinkActive="nav__link--active"
-      >
-        Личный кабинет
-      </a>
+      <ng-container *ngIf="isAuthenticated; else guestLinks">
+        <a
+          class="nav__link"
+          routerLink="/profile"
+          routerLinkActive="nav__link--active"
+        >
+          Личный кабинет
+        </a>
+      </ng-container>
+      <ng-template #guestLinks>
+        <a
+          class="nav__link"
+          routerLink="/auth/login"
+          routerLinkActive="nav__link--active"
+        >
+          Вход
+        </a>
+        <a
+          class="nav__link"
+          routerLink="/auth/register"
+          routerLinkActive="nav__link--active"
+        >
+          Регистрация
+        </a>
+      </ng-template>
     </div>
   </div>
 </nav>
