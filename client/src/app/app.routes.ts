@@ -7,6 +7,7 @@ import { ProfilePageComponent } from './features/profile/components/profile-page
 import { authGuard } from './features/auth/guards/auth.guard';
 import { guestGuard } from './features/auth/guards/guest.guard';
 import { ProfileEditPageComponent } from './features/profile/components/profile-edit-page/profile-edit-page.component';
+import { WarehousePageComponent } from './features/warehouse/components/warehouse-page/warehouse-page.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,12 @@ export const routes: Routes = [
     path: 'profile/edit',
     canActivate: [authGuard],
     component: ProfileEditPageComponent,
+  },
+  {
+    title: 'Склад',
+    path: 'warehouse',
+    canActivate: [authGuard],
+    component: WarehousePageComponent,
   },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/auth/login' }, // Redirect unknown routes to login

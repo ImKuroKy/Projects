@@ -1,0 +1,44 @@
+<div class="warehouse">
+  <div class="warehouse__container">
+    <h1 class="warehouse__title">{{ warehouseName }}</h1>
+    <p class="warehouse__address">{{ warehouseAddress }}</p>
+
+    <div class="warehouse__progress-bar-container">
+      <div
+        class="warehouse__progress-bar"
+        [ngStyle]="{
+          'width.%': getProgress(),
+          'background-color': getProgressColor()
+        }"
+      ></div>
+      <div class="warehouse__progress-bar-text">
+        На складе {{ totalQuantity }} / {{ warehouseCapacity }} товаров
+      </div>
+    </div>
+
+    <div class="warehouse__table-wrapper">
+      <table class="warehouse__products-table">
+        <thead class="warehouse__products-header">
+          <tr class="warehouse__products-row">
+            <th class="warehouse__products-header-cell">Название</th>
+            <th class="warehouse__products-header-cell">Количество</th>
+            <th class="warehouse__products-header-cell">Артикул</th>
+            <th class="warehouse__products-header-cell">Производитель</th>
+            <th class="warehouse__products-header-cell">Поставщик</th>
+            <th class="warehouse__products-header-cell">Описание</th>
+          </tr>
+        </thead>
+        <tbody class="warehouse__products-body">
+          <tr class="warehouse__products-row" *ngFor="let product of products">
+            <td class="warehouse__products-cell">{{ product.name }}</td>
+            <td class="warehouse__products-cell">{{ product.quantity }}</td>
+            <td class="warehouse__products-cell">{{ product.sku }}</td>
+            <td class="warehouse__products-cell">{{ product.manufacturer }}</td>
+            <td class="warehouse__products-cell">{{ product.supplier }}</td>
+            <td class="warehouse__products-cell">{{ product.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
