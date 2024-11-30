@@ -41,7 +41,7 @@ export const routes: Routes = [
   },
   {
     title: 'Склад',
-    path: 'warehouse',
+    path: 'warehouse/:id/products',
     canActivate: [authGuard],
     component: WarehousePageComponent,
   },

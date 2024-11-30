@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../models/product.model';
+import { Product, WarehouseDetails } from '../models/warehouse.model';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -12,11 +12,11 @@ export class WarehouseService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.baseUrl}/products`);
+  getProducts(warehouseID: number): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/warehouse/${warehouseID}/products`);
   }
 
-  getWarehouseDetails(): Observable<{ name: string; address: string; capacity: number }> {
-    return this.http.get<{ name: string; address: string; capacity: number }>(`${this.baseUrl}/warehouse`);
+  getWarehouseDetails(warehouseID: number): Observable<WarehouseDetails> {
+    return this.http.get<{ name: string; address: string; capacity: number }>(`${this.baseUrl}/warehouse/${warehouseID}`);
   }
 }

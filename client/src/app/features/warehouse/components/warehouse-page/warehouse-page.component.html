@@ -30,11 +30,11 @@
         </thead>
         <tbody class="warehouse__products-body">
           <tr class="warehouse__products-row" *ngFor="let product of products">
-            <td class="warehouse__products-cell">{{ product.name }}</td>
+            <td class="warehouse__products-cell">{{ product.product_name }}</td>
             <td class="warehouse__products-cell">{{ product.quantity }}</td>
             <td class="warehouse__products-cell">{{ product.sku }}</td>
             <td class="warehouse__products-cell">{{ product.manufacturer }}</td>
-            <td class="warehouse__products-cell">{{ product.supplier }}</td>
+            <td class="warehouse__products-cell">{{ product.supplier_name }}</td>
             <td class="warehouse__products-cell">{{ product.description }}</td>
           </tr>
         </tbody>
