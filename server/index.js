@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/authRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js"
+import warehouseRoutes from "./routes/warehouseRoutes.js"
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use("/warehouse", warehouseRoutes);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.listen(port, (err) => {
