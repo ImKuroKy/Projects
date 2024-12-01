@@ -5,6 +5,7 @@ export const fetchWarehouseProducts = async (warehouseId) => {
     SELECT 
         p.name AS product_name,
         wp.quantity,
+        p.sku,
         p.description,
         p.price,
         p.manufacturer,
