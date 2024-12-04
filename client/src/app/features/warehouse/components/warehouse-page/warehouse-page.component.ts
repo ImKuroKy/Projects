@@ -64,12 +64,8 @@ export class WarehousePageComponent implements OnInit {
 
   getProgressColor(): string {
     const progress = this.getProgress();
-    if (progress < 20) {
-      return '#4caf50'; // Green
-    } else if (progress >= 20 && progress < 80) {
-      return '#ffeb3b'; // Yellow
-    } else {
-      return '#f44336'; // Red
-    }
+    if (progress < 20) return '#4caf50'; // Green
+    if (progress < 80) return '#ffeb3b'; // Yellow
+    return '#f44336'; // Red
   }
 }

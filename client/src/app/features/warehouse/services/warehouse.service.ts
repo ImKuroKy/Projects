@@ -19,4 +19,8 @@ export class WarehouseService {
   getWarehouseDetails(warehouseID: number): Observable<WarehouseDetails> {
     return this.http.get<{ name: string; address: string; capacity: number }>(`${this.baseUrl}/warehouse/${warehouseID}`);
   }
+
+  getUserWarehouses(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/warehouse`);
+  }
 }

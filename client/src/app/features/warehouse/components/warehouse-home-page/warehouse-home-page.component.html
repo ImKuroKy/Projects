@@ -1,0 +1,23 @@
+<div class="warehouse-home">
+  <div class="warehouse-home__container">
+    <h1 class="warehouse-home__title">Доступные склады</h1>
+    <div class="warehouse-home__cards">
+      <div *ngFor="let warehouse of warehouses" class="warehouse-home__card">
+        <h2 class="warehouse-home__card-title">{{ warehouse.name }}</h2>
+        <p class="warehouse-home__card-address">{{ warehouse.address }}</p>
+        <div class="warehouse-home__progress-bar-container">
+          <div
+            class="warehouse-home__progress-bar"
+            [ngStyle]="{
+              'width.%': getProgress(warehouse),
+              'background-color': getProgressColor(warehouse)
+            }"
+          ></div>
+          <div class="warehouse-home__progress-bar-text">
+            Загруженность: {{ getProgress(warehouse) }}%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

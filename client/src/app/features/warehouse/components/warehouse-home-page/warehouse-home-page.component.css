@@ -1,0 +1,93 @@
+.warehouse-home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.warehouse-home__container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  margin: 0 auto;
+}
+
+.warehouse-home__title {
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.warehouse-home__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.warehouse-home__card {
+  flex: 1 1 calc(33.333% - 20px);
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.warehouse-home__card-title {
+  margin: 0;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.warehouse-home__card-address {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+.warehouse-home__progress-bar-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  height: 24px;
+}
+
+.warehouse-home__progress-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.warehouse-home__progress-bar-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  top: 50%;
+  transform: translateY(-50%);
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+@media (max-width: 768px) {
+  .warehouse-home__card {
+    flex: 1 1 calc(100% - 20px);
+  }
+}
